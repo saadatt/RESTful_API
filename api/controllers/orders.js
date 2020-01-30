@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 //mongoose.set('useCreateIndex', true);
 
-const Order = require("../models/order");
-const Product = require("../models/product");
+const Order = require('../models/order');
+const Product = require('../models/product');
 
 
 exports.orders_get_all = (req, res, next) => {
     Order.find()
-        .select("product quantity _id")
-        .populate("product", "name")
+        .select('product quantity _id')
+        .populate('product', 'name')
         .exec()
         .then(docs => {
             res.status(200).json({
@@ -20,7 +20,7 @@ exports.orders_get_all = (req, res, next) => {
                         quantity: doc.quantity,
                         request: {
                             type: "GET",
-                            url: "http://localhost:3000/orders/" + doc._id
+                            url: 'http://localhost:3000/orders/' + doc._id
                         }
                     };
                 })
@@ -52,7 +52,7 @@ exports.orders_create_order = (req, res, next) => {
         .then(result => {
             console.log(result);
             res.status(201).json({
-                message: "Order stored",
+                message: 'Order stored',
                 createdOrder: {
                     _id: result._id,
                     product: result.product,
@@ -60,7 +60,7 @@ exports.orders_create_order = (req, res, next) => {
                 },
                 request: {
                     type: "GET",
-                    url: "http://localhost:3000/orders/" + result._id
+                    url: 'http://localhost:3000/orders/' + result._id
                 }
             });
         })
@@ -87,7 +87,7 @@ exports.orders_get_order = (req, res, next) => {
                 order: order,
                 request: {
                     type: "GET",
-                    url: "http://localhost:3000/orders"
+                    url: 'http://localhost:3000/orders'
                 }
             });
         })
